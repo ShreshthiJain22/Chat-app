@@ -3,79 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chat</title>
-  <!-- Link your CSS file -->
-  <link rel="stylesheet" type="text/css" href="index.css" />
-  <!-- Include React scripts -->
-  <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/react-router-dom/umd/react-router-dom.min.js" crossorigin></script>
-  <script src="https://unpkg.com/socket.io-client/dist/socket.io.js" crossorigin></script>
-</head>
-<body>
-  <div id="root"></div>
-
-  <script>
-    // Your Chat component code goes here
-    function Chat() {
-      const { useEffect, useState, useRef } = React;
-      const { useNavigate } = ReactRouterDOM;
-
-      const navigate = useNavigate();
-      const socket = useRef();
-      const [contacts, setContacts] = useState([]);
-      const [currentChat, setCurrentChat] = useState(undefined);
-      const [currentUser, setCurrentUser] = useState(undefined);
-
-      useEffect(async () => {
-        if (!localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
-          navigate("/login");
-        } else {
-          setCurrentUser(
-            await JSON.parse(
-              localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-            )
-          );
-        }
-      }, []);
-
-      useEffect(() => {
-        if (currentUser) {
-          socket.current = io(host);
-          socket.current.emit("add-user", currentUser._id);
-        }
-      }, [currentUser]);
-
-      useEffect(async () => {
-        if (currentUser) {
-          if (currentUser.isAvatarImageSet) {
-            const data = await axios.get(`${allUsersRoute}/${currentUser._id}`);
-            setContacts(data.data);
-          } else {
-            navigate("/setAvatar");
-          }
-        }
-      }, [currentUser]);
-
-      const handleChatChange = (chat) => {
-        setCurrentChat(chat);
-      };
-
-      return (
-        React.createElement(React.Fragment, null,
-          React.createElement(Container, null,
-            React.createElement("div", { className: "container" },
-              React.createElement(Contacts, { contacts: contacts, changeChat: handleChatChange }),
-              currentChat === undefined ?
-                React.createElement(Welcome, null) :
-                React.createElement(ChatContainer, { currentChat: currentChat, socket: socket })
-            )
-          )
-        )
-      );
+  <title>Chat App</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #131324;
     }
-
-    const Container = styled.div`
+    .container {
       height: 100vh;
       width: 100vw;
       display: flex;
@@ -84,20 +20,51 @@
       gap: 1rem;
       align-items: center;
       background-color: #131324;
-      .container {
-        height: 85vh;
-        width: 85vw;
-        background-color: #00000076;
-        display: grid;
-        grid-template-columns: 25% 75%;
-        @media screen and (min-width: 720px) and (max-width: 1080px) {
-          grid-template-columns: 35% 65%;
-        }
+    }
+    .container .container {
+      height: 85vh;
+      width: 85vw;
+      background-color: #00000076;
+      display: grid;
+      grid-template-columns: 25% 75%;
+    }
+    @media screen and (min-width: 720px) and (max-width: 1080px) {
+      .container .container {
+        grid-template-columns: 35% 65%;
       }
-    `;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="container">
+      <div class="contacts">
+        <!-- Contacts component -->
+        <!-- Example Contact List -->
+        <ul>
+          <li>Contact 1</li>
+          <li>Contact 2</li>
+          <li>Contact 3</li>
+        </ul>
+      </div>
+      <div class="chat-container">
+        <!-- ChatContainer or Welcome component -->
+        <!-- Example Chat Container -->
+        <div class="chat">
+          <!-- Example Chat Messages -->
+          <div class="message">
+            <span class="sender">User 1:</span> Hello!
+          </div>
+          <div class="message">
+            <span class="sender">User 2:</span> Hi there!
+          </div>
+          <!-- Add more messages as needed -->
+        </div>
+      </div>
+    </div>
+  </div>
 
-    ReactDOM.render(React.createElement(Chat), document.getElementById("root"));
-  </script>
+  <!-- Include your JavaScript code here if necessary -->
+
 </body>
 </html>
-
