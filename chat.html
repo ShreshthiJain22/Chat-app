@@ -3,124 +3,136 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chat App</title>
+  <title>Chat Interface</title>
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
-    }
-
-    .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .chat-container {
-      width: 80%;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      background-color: #fff;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      border-radius: 10px;
-      padding: 20px;
-    }
-
-    .contacts {
-      width: 30%;
-      padding: 20px;
-      background-color: #f9f9f9;
-      border-right: 1px solid #ddd;
-    }
-
-    .contacts h2 {
-      margin-bottom: 10px;
-    }
-
-    .contacts ul {
-      list-style-type: none;
-      padding: 0;
-    }
-
-    .contacts li {
-      padding: 10px 0;
-      cursor: pointer;
-    }
-
-    .contacts li:hover {
-      background-color: #e0e0e0;
-    }
-
-    .chat {
-      width: 70%;
-      height: 400px;
-      overflow-y: auto;
-    }
-
-    .chat .message {
-      margin: 10px;
-      padding: 10px;
-      background-color: #dff0ff;
-      border-radius: 10px;
-    }
-
-    .chat .message.sender {
-      align-self: flex-end;
-      background-color: #cce5ff;
-    }
-
-    .input-container {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      margin-top: 20px;
-    }
-
-    .input-container input {
-      flex: 1;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      margin-right: 10px;
-    }
-
-    .input-container button {
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+    /* Paste your styled components CSS here */
+    const Container = styled.div`
+      display: grid;
+      grid-template-rows: 10% 80% 10%;
+      gap: 0.1rem;
+      overflow: hidden;
+      @media screen and (min-width: 720px) and (max-width: 1080px) {
+        grid-template-rows: 15% 70% 15%;
+      }
+      .chat-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 2rem;
+        .user-details {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          .avatar {
+            img {
+              height: 3rem;
+            }
+          }
+          .username {
+            h3 {
+              color: white;
+            }
+          }
+        }
+      }
+      .chat-messages {
+        padding: 1rem 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        overflow: auto;
+        &::-webkit-scrollbar {
+          width: 0.2rem;
+          &-thumb {
+            background-color: #ffffff39;
+            width: 0.1rem;
+            border-radius: 1rem;
+          }
+        }
+        .message {
+          display: flex;
+          align-items: center;
+          .content {
+            max-width: 40%;
+            overflow-wrap: break-word;
+            padding: 1rem;
+            font-size: 1.1rem;
+            border-radius: 1rem;
+            color: #d1d1d1;
+            @media screen and (min-width: 720px) and (max-width: 1080px) {
+              max-width: 70%;
+            }
+          }
+        }
+        .sended {
+          justify-content: flex-end;
+          .content {
+            background-color: #4f04ff21;
+          }
+        }
+        .recieved {
+          justify-content: flex-start;
+          .content {
+            background-color: #9900ff20;
+          }
+        }
+      }
+    `;
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="chat-container">
-      <div class="contacts">
-        <h2>Contacts</h2>
-        <ul>
-          <li>Contact 1</li>
-          <li>Contact 2</li>
-          <li>Contact 3</li>
-        </ul>
+    <div class="contacts">
+      <div class="brand">
+        <!-- Your brand logo and name here -->
+        <img src="your-logo.png" alt="Your Brand Logo">
+        <h3>Your Brand Name</h3>
       </div>
-      <div class="chat">
-        <div class="message">
-          <p><strong>User 1:</strong> Hello!</p>
+      <!-- List of contacts -->
+      <div class="contact">
+        <!-- Contact avatar and username -->
+        <div class="avatar">
+          <img src="contact-avatar.png" alt="Contact Avatar">
         </div>
-        <div class="message sender">
-          <p><strong>User 2:</strong> Hi there!</p>
+        <div class="username">
+          <h3>Contact Username</h3>
         </div>
       </div>
+      <!-- Repeat the above structure for each contact -->
     </div>
-    <div class="input-container">
-      <input type="text" placeholder="Type your message...">
-      <button>Send</button>
+    <div class="chat">
+      <div class="chat-header">
+        <div class="user-details">
+          <!-- User avatar and username -->
+          <div class="avatar">
+            <img src="user-avatar.png" alt="User Avatar">
+          </div>
+          <div class="username">
+            <h3>User Username</h3>
+          </div>
+        </div>
+        <!-- Other header elements, e.g., options, etc. -->
+      </div>
+      <div class="chat-messages">
+        <!-- Chat messages go here -->
+        <!-- Example message -->
+        <div class="message recieved">
+          <div class="content">
+            <!-- Message content -->
+            This is a received message.
+          </div>
+        </div>
+        <!-- Example sent message -->
+        <div class="message sended">
+          <div class="content">
+            <!-- Message content -->
+            This is a sent message.
+          </div>
+        </div>
+        <!-- Repeat the above structure for each message -->
+      </div>
+      <!-- Chat input field -->
+      <input type="text" class="chat-input" placeholder="Type your message...">
     </div>
   </div>
 </body>
